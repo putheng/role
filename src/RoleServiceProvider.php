@@ -3,6 +3,7 @@
 namespace Putheng\Role;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class RoleServiceProvider extends ServiceProvider
 {
@@ -14,6 +15,10 @@ class RoleServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+
+        Blade::if('role', function($role){
+            return auth()->check() && auth()->user()->hasRole($role);
+        });
     }
 
     /**

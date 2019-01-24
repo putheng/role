@@ -28,7 +28,7 @@ trait HasPermissionsTrait
         return $this;
     }
 
-    public function updatePermissions(...$permissions)
+    public function refreshPermissions(...$permissions)
     {
         $this->permissions()->detach();
 

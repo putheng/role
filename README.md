@@ -37,6 +37,44 @@ Check is user has roles
 ```php
 $user = User::find(1);
 
+// multiple argument
+$user->hasRole('admin', 'user');
 // true or false 
-$user->hasRole(['admin']);
+```
+
+Check is user has permission or permission through role
+```php
+$user = User::find(1);
+
+$user->hasPermissionTo('edit posts', 'delete posts');
+// true or false 
+```
+
+Give permissions
+```php
+$user = User::find(1);
+
+$user->givePermissionTo(['edit posts', 'delete posts']);
+```
+
+Revoke permissions
+```php
+$user = User::find(1);
+
+$user->withdrawPermissionTo(['edit posts']);
+```
+
+Refresh permissions
+remove all user's permissions and re-give the permissions 
+```php
+$user = User::find(1);
+
+$user->refreshPermissions(['edit posts']);
+```
+
+Custom blade what we output inside template
+```php
+@role('admin')
+    <a href="#">Admin panel</a>
+@endrole
 ```
