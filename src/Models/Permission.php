@@ -2,6 +2,7 @@
 
 namespace Putheng\Role\Models;
 
+use Putheng\Role\Models\Role;
 use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model

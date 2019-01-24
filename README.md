@@ -30,3 +30,13 @@ class User extends Model {
     use HasPermissionsTrait;
 }
 ```
+
+## Usage
+
+Check is user has roles
+```php
+$user = User::find(1);
+
+// true or false 
+$user->hasRole(['admin']);
+```
