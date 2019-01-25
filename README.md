@@ -73,8 +73,16 @@ $user->refreshPermissions(['edit posts']);
 ```
 
 Custom blade what we output inside template
+Role
 ```html
 @role('admin')
     <a href="#">Admin panel</a>
 @endrole
+```
+
+Permission
+```html
+@permission('edit post')
+    <a href="#">Edit post</a>
+@endpermission
 ```

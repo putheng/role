@@ -14,7 +14,7 @@ trait HasPermissionsTrait
             return $this;
         }
 
-        $this->permissions()->saveMany($permissions);
+        $this->permissions()->syncWithoutDetaching($permissions);
 
         return $this;
     }
@@ -28,7 +28,7 @@ trait HasPermissionsTrait
         return $this;
     }
 
-    public function refreshPermissions(...$permissions)
+    public function updatePermissions(...$permissions)
     {
         $this->permissions()->detach();
 
