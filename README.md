@@ -33,13 +33,13 @@ class User extends Model {
 
 #### Add to `AppServiceProvider` on `boot` method for Bootstrap services.
 ```php
-	use Putheng\Role\Models\Permission;
+use Putheng\Role\Models\Permission;
 
-	Permission::get()->map(function($permission){
-	    Gate::define($permission->name, function($user) use ($permission){
-	        return $user->hasPermissionTo($permission);
-	    });
-	});
+Permission::get()->map(function($permission){
+    Gate::define($permission->name, function($user) use ($permission){
+        return $user->hasPermissionTo($permission);
+    });
+});
 ```
 
 ## Usage
