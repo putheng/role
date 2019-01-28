@@ -28,7 +28,7 @@ trait HasPermissionsTrait
         return $this;
     }
 
-    public function updatePermissions(...$permissions)
+    public function refreshPermissions(...$permissions)
     {
         $this->permissions()->detach();
 
@@ -44,6 +44,32 @@ trait HasPermissionsTrait
         }
 
         return false;
+    }
+
+    public function giveRoleTo(...$roles)
+    {
+        $roles = $this->getAllRoles(array_flatten($roles));
+
+        if ($roles === null) {
+            return $this;
+        }
+
+        $this->roles()->syncWithoutDetaching($roles);
+
+        return $this;
+    }
+
+    
+    public function refreshRoles(...$roles)
+    {
+        $this->roles()->detach();
+        
+        return $this->giveRoleTo($roles);
+    }
+
+    protected function getAllRoles(array $roles)
+    {
+        return Role::whereIn('name', $roles)->get();
     }
 
     public function hasPermissionTo($permission)

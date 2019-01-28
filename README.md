@@ -31,6 +31,17 @@ class User extends Model {
 }
 ```
 
+#### Add to `AppServiceProvider` on `boot` method for Bootstrap services.
+```php
+	use Putheng\Role\Models\Permission;
+
+	Permission::get()->map(function($permission){
+	    Gate::define($permission->name, function($user) use ($permission){
+	        return $user->hasPermissionTo($permission);
+	    });
+	});
+```
+
 ## Usage
 
 Check is user has roles
@@ -42,12 +53,33 @@ $user->hasRole('admin', 'user');
 // true or false 
 ```
 
+Give role to
+```php
+$user = User::find(1);
+
+// multiple argument
+$user->giveRoleTo('admin', 'user');
+// true or false 
+```
+
+Refresh role
+```php
+$user = User::find(1);
+
+// multiple argument
+$user->refreshRoles('admin', 'user');
+// true or false 
+```
+
 Check is user has permission or permission through role
 ```php
 $user = User::find(1);
 
 $user->hasPermissionTo('edit posts', 'delete posts');
 // true or false 
+
+// Use Laravel Gate can method
+$user->can('edit posts');
 ```
 
 Give permissions
