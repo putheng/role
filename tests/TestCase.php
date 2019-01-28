@@ -37,5 +37,15 @@ abstract class TestCase extends Orchestra\Testbench\TestCase
 			'database' => ':memory:',
 			'prefix' => '',
 		]);
+
+		\Schema::create('users', function ($table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
+        });
 	}
 }
