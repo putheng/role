@@ -1,7 +1,7 @@
 Installation
 ------------
 
-Require this package with composer. It is recommended to only require the package for development.
+Require this package with composer.
 ```
 composer require putheng/role
 ```
@@ -11,7 +11,7 @@ Laravel 5.5 uses Package Auto-Discovery, so doesn't require you to manually add 
 ### Setting up from scratch
 
 #### Laravel 5.5+:
-If you don't use auto-discovery, add the ServiceProvider to the providers array in config/app.php
+If you don't use auto-discovery, add the ServiceProvider to the providers array in `config/app.php`
 ```php
 Putheng\Role\RoleServiceProvider::class,
 ```
@@ -40,6 +40,29 @@ Permission::get()->map(function($permission){
         return $user->hasPermissionTo($permission);
     });
 });
+```
+
+#### Middleware
+Add `RoleMiddleware` to `$routeMiddleware` in `App\Http\Kernel` class
+
+```php
+'role' => \Putheng\Role\RoleMiddleware::class,
+```
+##### Router
+
+```php
+Route::group(['middleware' => 'role:admin'], function () {
+    Route::group(['middleware' => 'role:admin,delete users'], function () {
+        Route::get('/admin/users', function () {
+            return 'Delete users in admin panel';
+        });
+    });
+
+    Route::get('/admin', function () {
+        return 'Admin panel';
+    });
+});
+
 ```
 
 ## Usage
